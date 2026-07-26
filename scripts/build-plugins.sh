@@ -68,6 +68,18 @@ generate_command_from_skill() {
     # user-invocable skills declare one in source. Optional: emitted only when present.
     local argument_hint=$(echo "$frontmatter" | grep -E "^argument-hint:" | sed 's/^argument-hint: *//')
 
+    # Every OTHER field CC reads from the command file. Custom commands were merged into
+    # skills upstream, so both sides share one frontmatter schema:
+    # https://code.claude.com/docs/en/slash-commands
+    #
+    # This is a LOOP, not a hand-written field per line, because the field-by-field form is
+    # what dropped argument-hint (#3146) and then disable-model-invocation: adding a key
+    # upstream required a human to remember this function existed. Adding a name here is now
+    # the only edit. Keep aligned with MUST_SURVIVE in
+    # tests/plugins/test-command-frontmatter-passthrough.sh, which fails the build on any
+    # unclassified key.
+    local PASSTHROUGH_KEYS=(disable-model-invocation model effort context agent user-invocable name)
+
     # Default allowed tools if not specified
     if [[ -z "$allowed_tools" ]]; then
         allowed_tools="[Bash, Read, Write, Edit, Glob, Grep]"
@@ -78,6 +90,19 @@ generate_command_from_skill() {
         echo "---"
         echo "description: $description"
         [[ -n "$argument_hint" ]] && echo "argument-hint: $argument_hint"
+        # The `|| true` is load-bearing under `set -e`: a bare `val=$(... | grep ...)`
+        # propagates grep's exit 1 when the key is absent and kills the build silently.
+        # grep finding nothing here means "this skill did not declare that optional key",
+        # which is the normal case, not an error. The `local x=$(...)` declarations above
+        # survive the same hazard only by accident — `local` returns its own status.
+        local key val
+        for key in "${PASSTHROUGH_KEYS[@]}"; do
+            # silent: known-noise
+            val=$(echo "$frontmatter" | grep -E "^${key}:" | sed "s/^${key}: *//" || true)
+            if [[ -n "$val" ]]; then
+                echo "${key}: ${val}"
+            fi
+        done
         echo "allowed-tools: $allowed_tools"
         echo "---"
         echo ""

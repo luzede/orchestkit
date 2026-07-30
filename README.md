@@ -3,7 +3,7 @@
 
 <img src="docs/banner.png" alt="OrchestKit - Stop explaining your stack. Start shipping." width="100%" />
 
-**<!--ork:skills-->114<!--/ork--> skills · <!--ork:agents-->36<!--/ork--> agents · <!--ork:hooks-->219<!--/ork--> hooks**
+**<!--ork:skills-->105<!--/ork--> skills · <!--ork:agents-->36<!--/ork--> agents · <!--ork:hooks-->218<!--/ork--> hooks**
 
 [![Claude Code](https://img.shields.io/badge/Claude_Code-≥2.1.220-7C3AED?style=for-the-badge&logo=anthropic)](https://claude.ai/claude-code)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](./LICENSE)
@@ -77,9 +77,9 @@ OrchestKit gives Claude **persistent knowledge** of production patterns that wor
 
 | Component | Details |
 |-----------|---------|
-| **<!--ork:skills-->114<!--/ork--> Skills** | RAG patterns, FastAPI, React 19, testing, security, database design, ML integration — loaded on-demand, zero overhead |
+| **<!--ork:skills-->105<!--/ork--> Skills** | RAG patterns, FastAPI, React 19, testing, security, database design, ML integration — loaded on-demand, zero overhead |
 | **<!--ork:agents-->36<!--/ork--> Agents** | Specialized personas (backend-architect, frontend-dev, security-auditor) — route tasks to the right expert |
-| **<!--ork:hooks-->219<!--/ork--> Hooks** | Pre-commit checks, git protection, quality gates, browser safety — ship with confidence |
+| **<!--ork:hooks-->218<!--/ork--> Hooks** | Pre-commit checks, git protection, quality gates, browser safety — ship with confidence |
 
 All available in a single `/plugin install ork`. Skills load on-demand. Hooks work automatically.
 
@@ -187,6 +187,21 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 <!-- AUTO-GENERATED from CHANGELOG.md by scripts/stamp-whats-new.mjs — do not hand-edit between the ork:whats-new markers. -->
 <!-- Regenerated on `npm run build`; CI (`--check`) fails if this is stale. Full history: [CHANGELOG.md](CHANGELOG.md). -->
 
+**[v9.2.1](https://github.com/yonatangross/orchestkit/compare/v9.2.0...v9.2.1)** · 2026-07-28
+
+- **evals:** propagate INCONCLUSIVE through the --changed fan-out (#3188)
+- **quickviz:** ship visual-style.md inside the skill bundle (#3185)
+- bump the github-actions group across 1 directory with 2 updates (#3174)
+
+**[v9.2.0](https://github.com/yonatangross/orchestkit/compare/v9.1.1...v9.2.0)** · 2026-07-28
+
+- **docs:** derive a flow graph for every skill reference page (#3184)
+- **hooks:** skip ASK tiers in bypassPermissions mode (#3177)
+- **visual-style:** stop the emoji vocabulary rejecting the ASCII palette (#3169)
+- **deps:** bump the npm-minor-patch group across 1 directory with 4 updates (#3179)
+- **deps:** bump the remotion group across 1 directory with 21 updates (#3175)
+- …and 2 more (see [CHANGELOG.md](CHANGELOG.md))
+
 **[v9.1.1](https://github.com/yonatangross/orchestkit/compare/v9.1.0...v9.1.1)** · 2026-07-26
 
 - sync README and changelog data to v9.1.0 (#3167)
@@ -225,19 +240,6 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 - **hooks:** make network-egress-guard DENY tier quote-aware (#3124)
 - **hooks:** redirect pipe-to-interpreter deny instead of dead-ending (#3121)
 - …and 8 more (see [CHANGELOG.md](CHANGELOG.md))
-
-**[v8.84.10](https://github.com/yonatangross/orchestkit/compare/v8.84.9...v8.84.10)** · 2026-07-23
-
-- **ci:** drop the What's New freshness gate blocking the PR queue (#3118)
-- **deps:** bump the npm-minor-patch group across 1 directory with 4 updates (#3111)
-- **deps:** bump the remotion group across 1 directory with 21 updates (#3110)
-- bump the github-actions group across 1 directory with 6 updates (#3112)
-
-**[v8.84.9](https://github.com/yonatangross/orchestkit/compare/v8.84.8...v8.84.9)** · 2026-07-23
-
-- **ci:** scope What's New --check to PRs, refresh for 8.84.8 (#3113)
-- **review:** allow the release bot to trigger a review (#3114)
-- **review:** skip auto-label on Dependabot PRs (no secret access) (#3116)
 
 _See [CHANGELOG.md](CHANGELOG.md) for the full release history._
 <!--/ork-->

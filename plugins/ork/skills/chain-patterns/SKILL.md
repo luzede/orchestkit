@@ -12,6 +12,10 @@ allowed-tools: [Read, ToolSearch]
 complexity: medium
 persuasion-type: guidance
 model: haiku
+# Reference skill: fenced calls below teach a pattern, they are not calls this
+# skill makes. Widening allowed-tools to satisfy the coverage gate would grant real
+# permissions (Agent, CronCreate) to something that never acts.
+tool-coverage: illustrative
 ---
 
 # Chain Patterns

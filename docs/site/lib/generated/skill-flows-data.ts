@@ -944,38 +944,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
       }
     ]
   },
-  "audit-skills": {
-    "tier": "sections",
-    "lanes": [
-      {
-        "id": "map",
-        "label": "What it covers",
-        "nodes": [
-          {
-            "num": "",
-            "label": "CRITICAL: Task Management is MANDATORY (CC…",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Workflow",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Key Decisions",
-            "does": "",
-            "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
   "auto": {
     "tier": "sections",
     "lanes": [
@@ -1129,7 +1097,7 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
-            "label": "Holdout Bake-Off Grading (skill-evolution)",
+            "label": "Holdout Bake-Off Grading",
             "does": "",
             "out": null,
             "tag": null
@@ -1480,52 +1448,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Rules",
-            "does": "",
-            "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
-  "checkpoint-resume": {
-    "tier": "sections",
-    "lanes": [
-      {
-        "id": "map",
-        "label": "What it covers",
-        "nodes": [
-          {
-            "num": "",
-            "label": "On Invocation",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Execution Plan Structure",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "After Each Phase",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Scripts",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Key Decisions",
             "does": "",
             "out": null,
             "tag": null
@@ -3459,45 +3381,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
       }
     ]
   },
-  "feedback": {
-    "tier": "sections",
-    "lanes": [
-      {
-        "id": "map",
-        "label": "What it covers",
-        "nodes": [
-          {
-            "num": "",
-            "label": "Usage",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Subcommands",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Consent and Security",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "File Locations",
-            "does": "",
-            "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
   "figma-design-handoff": {
     "tier": "sections",
     "lanes": [
@@ -4954,66 +4837,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
       }
     ]
   },
-  "notebooklm": {
-    "tier": "sections",
-    "lanes": [
-      {
-        "id": "map",
-        "label": "What it covers",
-        "nodes": [
-          {
-            "num": "",
-            "label": "Prerequisites",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "CRITICAL: Task Management is MANDATORY (CC…",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Decision Tree — Which Rule to Read",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "MCP Tools by API Group",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Key Decisions",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Example",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Common Mistakes",
-            "does": "",
-            "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
   "okr-design": {
     "tier": "sections",
     "lanes": [
@@ -5338,86 +5161,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
             "num": "",
             "label": "9. Related skills",
             "does": "",
-            "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
-  "presentation-builder": {
-    "tier": "headings",
-    "lanes": [
-      {
-        "id": "pre",
-        "label": "Pre-flight",
-        "nodes": [
-          {
-            "num": "STEP 0",
-            "label": "Detect Mode",
-            "does": "Determine what the user wants:",
-            "out": null,
-            "tag": null
-          }
-        ]
-      },
-      {
-        "id": "core",
-        "label": "Steps",
-        "nodes": [
-          {
-            "num": "1",
-            "label": "Content Discovery",
-            "does": "Before designing, understand the content. Use AskUserQuestion:",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "2",
-            "label": "Style Discovery",
-            "does": "This is the \"show, don't tell\" phase.",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "2.0",
-            "label": "Style Path Selection",
-            "does": "Ask how the user wants to choose their style:",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "2.1",
-            "label": "Mood Selection",
-            "does": "If \"Show me options\", ask via AskUserQuestion:",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "2.2",
-            "label": "Generate Style Previews",
-            "does": "Generate 3 distinct mini HTML files in .claude-design/slide-previews/:",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "2.3",
-            "label": "Present Previews",
-            "does": "Show user the 3 options and ask via AskUserQuestion:",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "3",
-            "label": "Generate Presentation",
-            "does": "Generate the full presentation based on content (Phase 1) and style (Phase 2).",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "4",
-            "label": "Delivery",
-            "does": "1. Clean up .claude-design/slide-previews/ if it exists",
             "out": null,
             "tag": null
           }
@@ -5969,59 +5712,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
             "label": "Capability Details",
             "does": "",
             "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
-  "release-checklist": {
-    "tier": "table",
-    "lanes": [
-      {
-        "id": "core",
-        "label": "Phases",
-        "nodes": [
-          {
-            "num": "1",
-            "label": "Build",
-            "does": "npm run build",
-            "out": "rules/gate-build-and-test.md",
-            "tag": null
-          },
-          {
-            "num": "2",
-            "label": "Tests",
-            "does": "npm test",
-            "out": "rules/gate-build-and-test.md",
-            "tag": null
-          },
-          {
-            "num": "3",
-            "label": "Security",
-            "does": "npm run test:security",
-            "out": "rules/gate-build-and-test.md",
-            "tag": null
-          },
-          {
-            "num": "4",
-            "label": "TypeScript",
-            "does": "npm run typecheck",
-            "out": "rules/gate-build-and-test.md",
-            "tag": null
-          },
-          {
-            "num": "5",
-            "label": "Validate counts",
-            "does": "/validate-counts",
-            "out": "rules/gate-counts-and-diff.md",
-            "tag": null
-          },
-          {
-            "num": "6",
-            "label": "Diff review",
-            "does": "git diff",
-            "out": "rules/gate-counts-and-diff.md",
             "tag": null
           }
         ]
@@ -6592,59 +6282,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
             "label": "Keys",
             "does": "Install recommended keyboard shortcuts",
             "out": "Read, Bash, AskUserQuestion",
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
-  "skill-evolution": {
-    "tier": "sections",
-    "lanes": [
-      {
-        "id": "map",
-        "label": "What it covers",
-        "nodes": [
-          {
-            "num": "",
-            "label": "How It Works",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Subcommands",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Data Files",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Auto-Evolution Safety",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Holdout-Promotion Gate (Champion / Challeng…",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Rules",
-            "does": "",
-            "out": null,
             "tag": null
           }
         ]
@@ -7367,65 +7004,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
       }
     ]
   },
-  "upgrade-assessment": {
-    "tier": "headings",
-    "lanes": [
-      {
-        "id": "pre",
-        "label": "Pre-flight",
-        "nodes": [
-          {
-            "num": "STEP 0",
-            "label": "Scope Definition",
-            "does": "Tool: AskUserQuestion",
-            "out": null,
-            "tag": null
-          }
-        ]
-      },
-      {
-        "id": "core",
-        "label": "Steps",
-        "nodes": [
-          {
-            "num": "1",
-            "label": "Detection",
-            "does": "Tools: Bash, Read, Grep, Glob",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "2",
-            "label": "Research",
-            "does": "Tools: WebSearch, WebFetch",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "3",
-            "label": "Codebase Scan",
-            "does": "Tools: Grep, Glob, Read",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "4",
-            "label": "Scoring",
-            "does": "Rate readiness 0-10 across 6 dimensions using the scoring rubric from platform-upgrade-knowledge. Load details: Read(\"${CLAUDE_SKILL_DIR}/references/scoring-rubric.md\") for per-dimension thresholds, weights, and score interpretation.",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "5",
-            "label": "Recommendations",
-            "does": "Generate prioritized action items based on Phase 3 findings and Phase 4 scores. Load details: Read(\"${CLAUDE_SKILL_DIR}/references/recommendation-format.md\") for priority assignment algorithm, effort estimation, and recommendation structure.",
-            "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
   "user-research": {
     "tier": "sections",
     "lanes": [
@@ -7492,38 +7070,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Rules (Load On-Demand)",
-            "does": "",
-            "out": null,
-            "tag": null
-          }
-        ]
-      }
-    ]
-  },
-  "validate-counts": {
-    "tier": "sections",
-    "lanes": [
-      {
-        "id": "map",
-        "label": "What it covers",
-        "nodes": [
-          {
-            "num": "",
-            "label": "Rules",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Workflow",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Common Mistakes",
             "does": "",
             "out": null,
             "tag": null

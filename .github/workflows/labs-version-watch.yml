@@ -9,12 +9,21 @@
 
 name: Upstream Version Watch
 on:
-  # POLICY: real `claude -p` calls run LOCALLY during dev, never automatically
-  # in CI. Max-plan OAuth costs $0 in dollars but draws on the SHARED WEEKLY
-  # QUOTA, the same pool as interactive sessions, so an automatic run silently
-  # competes with the operator for their own capacity. Measured 2026-07-28: one
-  # 51-skill sweep fired ~904 API calls in a single run and exhausted the cap.
-  # Manual dispatch only. Do NOT re-add schedule/pull_request/issues triggers.
+  # POLICY, and its EXACT SCOPE. Real `claude -p` calls run LOCALLY during dev,
+  # never automatically in CI: max-plan OAuth costs $0 in dollars but draws on the
+  # SHARED WEEKLY QUOTA, the same pool as interactive sessions, so an automatic run
+  # silently competes with the operator for their own capacity. Measured 2026-07-28:
+  # one 51-skill sweep fired ~904 API calls in a single run and exhausted the cap.
+  #
+  # This file stays manual-dispatch only, and the detection half now lives in a
+  # separate file. See .github/workflows/labs-version-probe.yml: it runs the same
+  # read-only `check-labs-versions.mjs` nightly and reports to the step summary.
+  #
+  # The split is structural. tests/unit/test-no-llm-in-ci.sh forbids an automatic
+  # trigger in any workflow FILE matching its LLM signature, and the policy text in
+  # this very comment block matches it. The guard is file-scoped and blunt on
+  # purpose, so the schedulable half was moved out rather than the rule bent.
+  # Do NOT add a schedule here.
   workflow_dispatch:
 
 # Default-deny at workflow level; writes scoped to the check-and-pr job.

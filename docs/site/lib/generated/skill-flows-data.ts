@@ -71,6 +71,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
             "does": "",
             "out": null,
             "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
           }
         ]
       }
@@ -107,6 +114,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Multi-Scenario",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
@@ -451,6 +465,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Evaluations",
             "does": "",
             "out": null,
@@ -589,6 +610,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
             "does": "",
             "out": null,
             "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
           }
         ]
       }
@@ -695,6 +723,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "id": "map",
         "label": "What it covers",
         "nodes": [
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
           {
             "num": "",
             "label": "Configuration",
@@ -1243,6 +1278,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "nodes": [
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Decision Tree",
             "does": "",
             "out": null,
@@ -1271,7 +1313,7 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
-            "label": "Safety Guardrails (7 rules + 11-check hook)",
+            "label": "Safety Guardrails (6 rules + the agent-brow…",
             "does": "",
             "out": null,
             "tag": null
@@ -1627,7 +1669,7 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "nodes": [
           {
             "num": "",
-            "label": "Code Review Philosophy",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
@@ -2083,6 +2125,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "id": "map",
         "label": "What it covers",
         "nodes": [
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
           {
             "num": "",
             "label": "Alembic Migrations",
@@ -2729,6 +2778,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Deployment Checklist & Templates",
             "does": "",
             "out": null,
@@ -2797,6 +2853,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Event-Driven",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
@@ -3004,6 +3067,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Capability Details",
             "does": "",
             "out": null,
@@ -3152,14 +3222,14 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
-            "label": "CLI Reference",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
           },
           {
             "num": "",
-            "label": "SDK Patterns",
+            "label": "CLI Reference",
             "does": "",
             "out": null,
             "tag": null
@@ -3635,6 +3705,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Examples",
             "does": "",
             "out": null,
@@ -3716,6 +3793,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Capability Details",
             "does": "",
             "out": null,
@@ -3773,6 +3857,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Core Patterns",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
@@ -4292,6 +4383,20 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
+            "label": "Supporting Files",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Key Decisions",
             "does": "",
             "out": null,
@@ -4638,6 +4743,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "nodes": [
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Infrastructure Monitoring",
             "does": "",
             "out": null,
@@ -4646,13 +4758,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "LLM Observability",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Drift Detection",
             "does": "",
             "out": null,
             "tag": null
@@ -4699,6 +4804,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Decision Matrix — When to Use Each Target",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
@@ -5438,6 +5550,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
             "does": "",
             "out": null,
             "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
           }
         ]
       }
@@ -5453,6 +5572,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Core Concepts",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
@@ -5649,6 +5775,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Common Mistakes",
             "does": "",
             "out": null,
@@ -5657,13 +5790,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Evaluations",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Capability Details",
             "does": "",
             "out": null,
             "tag": null
@@ -5679,6 +5805,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "id": "map",
         "label": "What it covers",
         "nodes": [
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
           {
             "num": "",
             "label": "Best Practices Summary",
@@ -6191,6 +6324,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Managed Hook Hierarchy (CC 2.1.49)",
             "does": "",
             "out": null,
@@ -6597,6 +6737,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "nodes": [
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "emulate Backends",
             "does": "",
             "out": null,
@@ -6699,6 +6846,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "nodes": [
           {
             "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
             "label": "Stateful API Testing (emulate — FIRST CHOIC…",
             "does": "",
             "out": null,
@@ -6743,6 +6897,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "id": "map",
         "label": "What it covers",
         "nodes": [
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
           {
             "num": "",
             "label": "LLM Mock Quick Start",
@@ -6946,13 +7107,6 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           },
           {
             "num": "",
-            "label": "Radix Primitives",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
             "label": "Key Decisions",
             "does": "",
             "out": null,
@@ -6961,6 +7115,13 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
           {
             "num": "",
             "label": "Anti-Patterns (FORBIDDEN)",
+            "does": "",
+            "out": null,
+            "tag": null
+          },
+          {
+            "num": "",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
@@ -7268,35 +7429,28 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "nodes": [
           {
             "num": "",
-            "label": "Vite 8: Rolldown-Powered Builds (Default)",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null
           },
           {
             "num": "",
-            "label": "Environment API (from Vite 7, stable)",
+            "label": "House delta",
             "does": "",
             "out": null,
             "tag": null
           },
           {
             "num": "",
-            "label": "Plugin Development",
+            "label": "House config",
             "does": "",
             "out": null,
             "tag": null
           },
           {
             "num": "",
-            "label": "SSR Configuration",
-            "does": "",
-            "out": null,
-            "tag": null
-          },
-          {
-            "num": "",
-            "label": "Build Optimization",
+            "label": "Rules",
             "does": "",
             "out": null,
             "tag": null
@@ -7448,7 +7602,7 @@ export const SKILL_FLOWS: Record<string, SkillFlow> = {
         "nodes": [
           {
             "num": "",
-            "label": "Core Patterns",
+            "label": "Upstream coverage (do not restate)",
             "does": "",
             "out": null,
             "tag": null

@@ -8,7 +8,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "accessibility",
     "description": "Accessibility patterns for WCAG 2.2 compliance, keyboard focus management, React Aria component patterns, cognitive inclusion, native HTML-first philosophy, and user preference honoring. Use when implementing screen reader support, keyboard navigation, ARIA patterns, focus traps, accessible component libraries, reduced motion, or cognitive accessibility.",
     "version": "2.1.0",
-    "sha256": "93a33193bca121f00636a3c639456e27922b10860e626041eeb3533685c38b0b",
+    "sha256": "3b59e87543b2313453d0a19a536bd3a729401055ef249b62076513fe7aaddc87",
     "author": "OrchestKit",
     "tags": [
       "accessibility",
@@ -34,20 +34,13 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "focus-patterns.md",
-        "react-aria-hooks.md",
-        "ux-thresholds-quick.md",
-        "wcag-criteria.md"
+        "ork-delta.md",
+        "ux-thresholds-quick.md"
       ],
       "scripts": [
         "accessible-component-template.tsx",
         "accessible-form-template.tsx",
         "focus-trap-template.tsx"
-      ],
-      "checklists": [
-        "focus-checklist.md",
-        "react-aria-checklist.md",
-        "wcag-checklist.md"
       ]
     },
     "plugins": [
@@ -63,7 +56,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "agent-orchestration",
     "description": "Agent orchestration patterns for agentic loops, multi-agent coordination, alternative frameworks, and multi-scenario workflows. Use when building autonomous agent loops, coordinating multiple agents, evaluating CrewAI/AutoGen/Swarm, or orchestrating complex multi-step scenarios.",
     "version": "2.0.0",
-    "sha256": "f04a796b232b9e8404b594c9ddf717b579c31e7bd8224d3506bea50347e3b31e",
+    "sha256": "5b08aa2720b57817e9cd8e8a7709cb98a15cb93ddd199c2dd58aa3d2cc06e16f",
     "author": "OrchestKit",
     "tags": [
       "agents",
@@ -89,17 +82,10 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "high",
     "structure": {
       "references": [
-        "architectural-patterns.md",
         "claude-code-instance-management.md",
-        "coordination-patterns.md",
-        "crewai-patterns.md",
         "framework-comparison.md",
-        "gpt-5-2-codex.md",
         "langgraph-implementation.md",
-        "microsoft-agent-framework.md",
-        "openai-agents-sdk.md",
-        "skill-agnostic-template.md",
-        "state-machine-design.md"
+        "ork-delta.md"
       ],
       "scripts": [
         "agent-workflow-template.ts",
@@ -107,8 +93,7 @@ export const SKILLS: Record<string, SkillMeta> = {
         "openai-multi-agent.py"
       ],
       "checklists": [
-        "framework-selection.md",
-        "orchestration-checklist.md"
+        "framework-selection.md"
       ]
     },
     "plugins": [
@@ -266,7 +251,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "api-design",
     "description": "API contract design for REST and GraphQL, covering resource shape, URL and header versioning with deprecation windows, RFC 9457 Problem Details error handling, and OpenAPI specs. Use when specifying the wire contract an endpoint exposes, choosing a versioning scheme, or standardizing error response bodies across services. Framework-agnostic protocol layer, not runtime implementation.",
     "version": "2.0.0",
-    "sha256": "4f71ec0155e9477474e2a5c044ad29a2f7855170099b0e5d536032c03f9e6d47",
+    "sha256": "241cb9ab0e36588b4a4ac5b245545cad2bd7a49069ce84d06d335beca46e50d4",
     "author": "OrchestKit",
     "tags": [
       "api-design",
@@ -292,17 +277,11 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "frontend-integration.md",
         "graphql-api.md",
-        "grpc-api.md",
-        "payload-access-control.md",
-        "payload-collection-design.md",
+        "ork-delta.md",
         "payload-vs-sanity.md",
-        "rest-api.md",
         "rest-patterns.md",
-        "rfc9457-spec.md",
         "telegram-bot-api.md",
-        "versioning-strategies.md",
         "webhook-security.md",
         "whatsapp-waha.md"
       ],
@@ -314,11 +293,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "create-openapi-spec.md",
         "fastapi-versioned-router.py",
         "problem-detail-exceptions.py"
-      ],
-      "checklists": [
-        "api-design-checklist.md",
-        "error-handling-checklist.md",
-        "versioning-checklist.md"
       ]
     },
     "plugins": [
@@ -385,7 +359,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "architecture-patterns",
     "description": "Architecture validation and patterns for clean architecture, backend structure enforcement, project structure validation, test standards, and context-aware sizing. Use when designing system boundaries, enforcing layered architecture, validating project structure, defining test standards, or choosing the right architecture tier for project scope.",
     "version": "2.1.0",
-    "sha256": "45321838b55e189327b22678ba1adcafb90a7c7ca95a7897399ffe663e38e943",
+    "sha256": "0a47af331d3e1bd8b2beb07f5d31276037c7b5df3d344561f9283ff227753e1d",
     "author": "OrchestKit",
     "tags": [
       "architecture",
@@ -414,22 +388,10 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "high",
     "structure": {
       "references": [
-        "backend-dependency-injection.md",
-        "backend-layer-separation.md",
-        "backend-naming-exceptions.md",
-        "clean-ddd-tactical-patterns.md",
-        "clean-hexagonal-ports-adapters.md",
-        "clean-solid-dependency-rule.md",
-        "dependency-injection.md",
-        "hexagonal-architecture.md",
-        "layer-rules.md",
         "naming-conventions.md",
-        "structure-folder-conventions.md",
+        "ork-delta.md",
         "structure-import-direction.md",
-        "testing-aaa-isolation.md",
-        "testing-coverage-location.md",
-        "testing-naming-conventions.md",
-        "violation-examples.md"
+        "testing-naming-conventions.md"
       ],
       "scripts": [
         "domain-entity-template.py"
@@ -523,7 +485,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "async-jobs",
     "description": "Async job processing patterns for background tasks, Celery workflows, task scheduling, retry strategies, and distributed task execution. Use when implementing background job processing, task queues, or scheduled task systems.",
     "version": "2.0.0",
-    "sha256": "2c6aab9ba040eac23a66a754ac0cdd706c97eae102d0cf58aa0ce29cb8d752a9",
+    "sha256": "2a7c536f4a77bdfc9c190c8d79c5623ea47e3b7aa80002a068adf7a320438d7a",
     "author": "OrchestKit",
     "tags": [
       "async",
@@ -548,16 +510,10 @@ export const SKILLS: Record<string, SkillMeta> = {
     "structure": {
       "references": [
         "anti-patterns.md",
-        "arq-patterns.md",
-        "canvas-workflows.md",
         "capability-details.md",
         "celery-config.md",
-        "monitoring-health.md",
-        "quick-start-examples.md",
-        "result-backends.md",
-        "retry-strategies.md",
-        "scheduled-tasks.md",
-        "task-routing.md"
+        "ork-delta.md",
+        "quick-start-examples.md"
       ]
     },
     "plugins": [
@@ -835,7 +791,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "browser-tools",
     "description": "Security wrapper over the upstream agent-browser skill, adding URL blocklisting, rate limiting, robots.txt enforcement, and scraping guardrails. Use when automating browser workflows that need safety limits.",
     "version": "5.0.0",
-    "sha256": "bb78f903ac7db72788c7abbfb0ee26906966007b75bbe3c37f1a934c0c527308",
+    "sha256": "b14d8d2ce2d7942d26b859cb71ddd91b6a6fa7ab3e65eef35074ef85da687462",
     "author": "OrchestKit",
     "tags": [
       "browser",
@@ -858,6 +814,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
+        "ork-delta.md",
         "upstream-dogfood.md",
         "upstream-electron.md",
         "upstream-sandbox.md",
@@ -1031,7 +988,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "code-review-playbook",
     "description": "Structured review processes, conventional comments, language-specific checklists, and feedback templates. Use when reviewing PRs, conducting code review, or standardizing review practice.",
     "version": "2.0.0",
-    "sha256": "6971b780875661f1ffa0af20d34bb60abd28dc7c8c14ff1f82c7bfd938a529ae",
+    "sha256": "21c4d45e9f98282a6b2e778e64931c4e12bb9e35537984d25aa1bcfa76ddd942",
     "author": "OrchestKit",
     "tags": [
       "code-review",
@@ -1054,20 +1011,16 @@ export const SKILLS: Record<string, SkillMeta> = {
     "structure": {
       "references": [
         "conventional-comments.md",
-        "review-patterns.md"
+        "ork-delta.md"
       ],
       "assets": [
-        "pr-template.md",
-        "review-feedback-template.md"
+        "pr-template.md"
       ],
       "scripts": [
         "fetch-pr-data.sh",
         "review-pr.md",
         "run-lint-check.sh",
         "run-pr-checks.py"
-      ],
-      "checklists": [
-        "code-review-checklist.md"
       ]
     },
     "plugins": [
@@ -1359,7 +1312,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "database-patterns",
     "description": "Database design and migration patterns for Alembic migrations, schema design (SQL/NoSQL), and database versioning. Use when creating migrations, designing schemas, normalizing data, managing database versions, or handling schema drift.",
     "version": "2.0.0",
-    "sha256": "71b7d2eda95979fa03eb8d7e7ed2b882db571713cec0f8d099178dcfec0656ff",
+    "sha256": "aab7daef0ca4b79f5e0a773babc86ed9ae49428a8745361871249fba8f85a8f2",
     "author": "OrchestKit",
     "tags": [
       "database",
@@ -1385,15 +1338,10 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "alembic-advanced.md",
-        "audit-trails.md",
         "cost-comparison.md",
         "db-migration-paths.md",
-        "environment-coordination.md",
-        "migration-patterns.md",
         "migration-testing.md",
-        "normalization-patterns.md",
-        "object-versioning.md",
+        "ork-delta.md",
         "postgres-vs-mongodb.md",
         "storage-and-cms.md"
       ],
@@ -1401,10 +1349,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "create-migration.md",
         "detect-model-changes.py",
         "migration-template.py"
-      ],
-      "checklists": [
-        "migration-checklist.md",
-        "schema-design-checklist.md"
       ]
     },
     "plugins": [
@@ -1803,7 +1747,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "devops-deployment",
     "description": "Use when setting up CI/CD pipelines, containerizing applications, deploying to Kubernetes, or writing infrastructure as code. DevOps & Deployment covers GitHub Actions, Docker, Helm, and Terraform patterns.",
     "version": "1.0.0",
-    "sha256": "789bdace71a44ef45735c2e44266ddaeb3a19dd4e0a4b1845b5aa46083781c09",
+    "sha256": "83ad6b0c38db189dababaec63bb05a6de74fb64e0033c39b7c665ff6d93e3f40",
     "author": "OrchestKit",
     "tags": [
       "devops",
@@ -1828,14 +1772,11 @@ export const SKILLS: Record<string, SkillMeta> = {
       "references": [
         "capability-details.md",
         "checklists-and-templates.md",
-        "ci-cd-pipelines.md",
         "deployment-strategies.md",
         "docker-patterns.md",
-        "environment-management.md",
-        "kubernetes-basics.md",
         "multi-service-setup.md",
         "nixpacks-customization.md",
-        "observability.md",
+        "ork-delta.md",
         "railway-json-config.md"
       ],
       "scripts": [
@@ -1849,9 +1790,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "helm-values.yaml",
         "k8s-manifests.yaml",
         "terraform-aws.tf"
-      ],
-      "checklists": [
-        "production-readiness.md"
       ]
     },
     "plugins": [
@@ -1868,7 +1806,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "distributed-systems",
     "description": "Distributed systems patterns for locking, resilience, idempotency, and rate limiting. Use when implementing distributed locks, circuit breakers, retry policies, idempotency keys, token bucket rate limiters, or fault tolerance patterns.",
     "version": "2.0.0",
-    "sha256": "c9565a5d40304b8d785c10b8557053444086e002462446f8c9feba924af3dee6",
+    "sha256": "1d15026f017ac3ee9594e8aba2dc0c699a105a80bb9583ae52c13fdcd4c0b370",
     "author": "OrchestKit",
     "tags": [
       "distributed-systems",
@@ -1903,16 +1841,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "bulkhead-pattern.md",
-        "circuit-breaker.md",
-        "error-classification.md",
-        "llm-resilience.md",
-        "postgres-advisory-locks.md",
-        "redis-locks.md",
-        "redlock-algorithm.md",
-        "retry-strategies.md",
-        "stripe-pattern.md",
-        "token-bucket-algorithm.md"
+        "ork-delta.md"
       ],
       "scripts": [
         "bulkhead.py",
@@ -1923,13 +1852,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "redis-rate-limiter.py",
         "retry-handler.py",
         "token-budget.py"
-      ],
-      "checklists": [
-        "circuit-breaker-setup.md",
-        "distributed-locks-checklist.md",
-        "idempotency-checklist.md",
-        "pre-deployment-resilience.md",
-        "rate-limiting-checklist.md"
       ]
     },
     "plugins": [
@@ -2039,7 +1961,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "domain-driven-design",
     "description": "DDD tactical patterns for complex business modeling including entities, value objects, aggregates, domain services, repositories, specifications, and bounded contexts. Python dataclass implementations with TypeScript alternatives. Use when building rich domain models, enforcing invariants, or separating domain logic from infrastructure.",
     "version": "1.0.0",
-    "sha256": "175629a36f47b72958104d02f2e2cd4c02c4b2a4d46ed16bc7da92e700e9aed8",
+    "sha256": "b2ec9b1d603288b3b57ea1640b8b8d1f3595c9a88a763b23c06bde302b8f7d1b",
     "author": "OrchestKit",
     "tags": [
       "ddd",
@@ -2063,18 +1985,13 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "bounded-contexts.md",
-        "domain-events.md",
-        "entities-value-objects.md",
+        "ork-delta.md",
         "repositories.md"
       ],
       "scripts": [
         "entity-template.py",
         "repository-template.py",
         "value-object-template.py"
-      ],
-      "checklists": [
-        "ddd-checklist.md"
       ]
     },
     "plugins": [
@@ -2118,7 +2035,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "emulate-seed",
     "description": "Generate emulate seed configs for stateful API emulation. Wraps Vercel's emulate tool for GitHub, Vercel, Google OAuth, Slack, Apple Auth, Microsoft Entra, AWS (S3/SQS/IAM), Okta, Clerk, Resend, Stripe, and MongoDB Atlas APIs. Not mocks — full state machines where create-a-PR-and-it-appears-in-the-list, send-an-email-and-retrieve-from-local-inbox. Use when setting up test environments, CI pipelines, integration tests, or offline development.",
     "version": "1.3.0",
-    "sha256": "008ef97486e243d215e57d8b2437a76933059c40ad15e82359232ae8fd7c3920",
+    "sha256": "7e4152ba8b1078baf874ccb0f66f2ef7e3aacbfc8ba6fdedfd0dd008c46d8770",
     "author": "OrchestKit",
     "tags": [
       "emulate",
@@ -2147,7 +2064,7 @@ export const SKILLS: Record<string, SkillMeta> = {
         "api-coverage.md",
         "cli-reference.md",
         "dep-to-emulator-map.json",
-        "sdk-patterns.md",
+        "ork-delta.md",
         "upstream-github.md",
         "upstream-google.md",
         "upstream-vercel.md",
@@ -2457,7 +2374,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "github-operations",
     "description": "GitHub CLI operations for issues, PRs, milestones, and Projects v2. Covers gh commands, REST API patterns, and automation scripts. Use when managing GitHub issues, PRs, milestones, or Projects with gh.",
     "version": "1.1.0",
-    "sha256": "665bb1be528c6de99f3f1eeca3337fc3354f0af9b85c856e5f3946a42606bd00",
+    "sha256": "558c40f9a2f5624229f593506297b9fdf67cd6827ae7b8441254fbf9c6f2a6bd",
     "author": "OrchestKit",
     "tags": [
       "github",
@@ -2491,6 +2408,7 @@ export const SKILLS: Record<string, SkillMeta> = {
         "graphql-api.md",
         "issue-management.md",
         "milestone-api.md",
+        "ork-delta.md",
         "pr-workflows.md",
         "projects-v2.md"
       ]
@@ -2511,7 +2429,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "golden-dataset",
     "description": "Golden dataset lifecycle patterns for curation, versioning, quality validation, and CI integration. Use when building evaluation datasets, managing dataset versions, validating quality scores, or integrating golden tests into pipelines.",
     "version": "2.0.0",
-    "sha256": "ab21686edc7404300fb608c88ce398ab980fc63b45d0d8e8b07d95f9825821a4",
+    "sha256": "28411e2370ad69f1a397f1437ee16f3a929658aafd400610c6cc3590e5ba3445",
     "author": "OrchestKit",
     "tags": [
       "golden-dataset",
@@ -2535,21 +2453,14 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "annotation-patterns.md",
-        "backup-restore.md",
+        "ork-delta.md",
         "quality-metrics.md",
-        "selection-criteria.md",
         "storage-patterns.md",
-        "validation-contracts.md",
-        "validation-rules.md",
         "versioning.md"
       ],
       "scripts": [
         "backup-golden-dataset.md",
         "backup-script.py"
-      ],
-      "checklists": [
-        "backup-restore-checklist.md"
       ]
     },
     "plugins": [
@@ -2598,7 +2509,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "i18n-date-patterns",
     "description": "Implements internationalization (i18n) in React applications. Covers user-facing strings, date/time handling, locale-aware formatting, ICU MessageFormat, and RTL support. Use when building multilingual UIs or formatting dates/currency.",
     "version": "1.2.0",
-    "sha256": "621fc6f82ad0e6ef07b06621f46978169c11dadb21b8e32c35857bdf1161b1bc",
+    "sha256": "75eeb19104f9a9eaf87d7886ead382d385cda07b9d949e48444790073930f11d",
     "author": "Yonatan Gross",
     "tags": [
       "i18n",
@@ -2628,8 +2539,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "structure": {
       "references": [
         "formatting-utilities.md",
-        "icu-messageformat.md",
-        "trans-component.md"
+        "ork-delta.md"
       ],
       "checklists": [
         "i18n-checklist.md"
@@ -2810,7 +2720,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "json-render-catalog",
     "description": "json-render component catalog patterns for AI-safe generative UI. Define Zod-typed catalogs that constrain what AI can generate, use @json-render/shadcn for 36 pre-built components, optimize specs with YAML mode, and apply the three edit modes (patch/merge/diff) for progressive updates. Use when building AI-generated UIs, defining component catalogs, or integrating json-render into React/Vue/Svelte/React Native/Ink/Next.js projects.",
     "version": "1.3.0",
-    "sha256": "f98a5e11579c7f1f3f1a823796cd2e05bfcdc54bf4bca60a708f6b73928ff3bc",
+    "sha256": "982e586c6e0e5be12d3a9a60be267f58994047eb38966fdf1988ee70ffcf7c10",
     "author": "OrchestKit",
     "tags": [
       "json-render",
@@ -2830,32 +2740,10 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "migration-from-genui.md",
+        "ork-delta.md",
         "package-ecosystem.md",
-        "spec-format.md",
         "storybook-fixture.json",
-        "storybook-import.md",
-        "upstream-core.md",
-        "upstream-email.md",
-        "upstream-image.md",
-        "upstream-ink.md",
-        "upstream-jotai.md",
-        "upstream-mcp.md",
-        "upstream-next.md",
-        "upstream-pdf.md",
-        "upstream-r3f.md",
-        "upstream-react-native.md",
-        "upstream-react.md",
-        "upstream-redux.md",
-        "upstream-remotion.md",
-        "upstream-shadcn-svelte.md",
-        "upstream-shadcn.md",
-        "upstream-solid.md",
-        "upstream-svelte.md",
-        "upstream-vue.md",
-        "upstream-xstate.md",
-        "upstream-yaml.md",
-        "upstream-zustand.md"
+        "storybook-import.md"
       ],
       "scripts": [
         "storybook-to-catalog.mjs"
@@ -2917,7 +2805,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "llm-integration",
     "description": "LLM integration patterns for function calling, streaming responses, local inference with Ollama, and fine-tuning customization. Use when implementing tool use, SSE streaming, local model deployment, LoRA/QLoRA fine-tuning, or multi-provider LLM APIs.",
     "version": "2.0.0",
-    "sha256": "3952a918c2ce394345b11817bd764667217d2cb92eca8dc60780e619b3914a8f",
+    "sha256": "52ad7601d86cceaaa94cfd358a7042099791c39ad59a97b12137d0902b34c08f",
     "author": "OrchestKit",
     "tags": [
       "llm",
@@ -2943,12 +2831,8 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "dpo-alignment.md",
-        "lora-qlora.md",
         "model-selection.md",
-        "synthetic-data.md",
-        "tool-schema.md",
-        "when-to-finetune.md"
+        "ork-delta.md"
       ],
       "scripts": [
         "create-lora-config.md",
@@ -3219,7 +3103,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "monitoring-observability",
     "description": "Monitoring and observability patterns for Prometheus metrics, Grafana dashboards, Langfuse v4 LLM tracing (as_type, score_current_span, should_export_span, LangfuseMedia), and drift detection. Use when adding logging, metrics, distributed tracing, LLM cost tracking, or quality drift monitoring.",
     "version": "3.0.0",
-    "sha256": "771dcf082a7c404e7acac0ed0f7b00f5f39041c0a03f1c87092f5783b619ae35",
+    "sha256": "464f1d843924f35702ce0c3e6d8a9b2534fcf5622176b890b759857c1cbc7451",
     "author": "OrchestKit",
     "tags": [
       "monitoring",
@@ -3246,32 +3130,15 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "agent-observability.md",
-        "alerting-dashboards.md",
-        "alerting-strategies.md",
-        "annotation-queues.md",
-        "cost-tracking.md",
         "dashboards.md",
         "dev-agent-lens.md",
-        "distributed-tracing.md",
-        "embedding-drift.md",
         "evaluation-scores.md",
-        "ewma-baselines.md",
         "experiments-api.md",
-        "framework-integrations.md",
-        "langfuse-evidently-integration.md",
         "langfuse-js-v5.md",
-        "logging-patterns.md",
         "metrics-collection.md",
-        "migration-v3-v4.md",
-        "multi-judge-evaluation.md",
-        "observability-layers.md",
-        "online-evaluators.md",
-        "prompt-management.md",
+        "ork-delta.md",
         "session-tracking.md",
-        "statistical-methods.md",
-        "structured-logging.md",
-        "tracing-setup.md"
+        "structured-logging.md"
       ],
       "scripts": [
         "alerting-rules.yml",
@@ -3281,10 +3148,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "opentelemetry-tracing.ts",
         "prometheus-metrics.ts",
         "structured-logging.ts"
-      ],
-      "checklists": [
-        "langfuse-setup-checklist.md",
-        "monitoring-implementation-checklist.md"
       ]
     },
     "plugins": [
@@ -3308,7 +3171,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "multi-surface-render",
     "description": "Multi-surface rendering with json-render — same JSON spec produces React web, Next.js apps, React Native, Ink terminal UIs, PDFs, emails, Remotion videos, OG images, and 3D scenes. Covers renderer target selection, registry mapping, and platform-specific APIs (renderToBuffer, renderToStream, renderToFile). Use when generating output for multiple platforms, creating PDF reports, email templates, demo videos, or social media images from a single component spec.",
     "version": "1.1.0",
-    "sha256": "291cb2e5801e2cc4f9b4f4f6653dcb1e9691ec4dc5957a435f7c5bb698d5a172",
+    "sha256": "ca8fb461e342f84f9028db1585fd5861e75a5d627c180f0aa092a91d45497a20",
     "author": "OrchestKit",
     "tags": [
       "json-render",
@@ -3331,8 +3194,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "renderer-api.md",
-        "target-comparison.md",
+        "ork-delta.md",
         "upstream-email.md",
         "upstream-image.md",
         "upstream-pdf.md",
@@ -3428,7 +3290,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "performance",
     "description": "Performance optimization patterns covering Core Web Vitals, React render optimization, lazy loading, image optimization, backend profiling, LLM inference, and sustainability UX. Use when improving page speed, debugging slow renders, optimizing bundles, reducing image payload, profiling backend, deploying LLMs efficiently, or reducing digital carbon footprint.",
     "version": "2.1.0",
-    "sha256": "daab6ac6d17b049c9f6630345227b8baaf9fb33bcbb419fc88712c4c59d9eed4",
+    "sha256": "c3fc12047c26b3dfa58b741ae758b2bba45eeec4ef09febbd36e127d6b48eba3",
     "author": "OrchestKit",
     "tags": [
       "performance",
@@ -3470,24 +3332,9 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "high",
     "structure": {
       "references": [
-        "caching-strategies.md",
         "cc-prompt-cache-guide.md",
-        "cdn-setup.md",
-        "core-web-vitals.md",
         "database-optimization.md",
-        "devtools-profiler-workflow.md",
-        "edge-deployment.md",
-        "frontend-performance.md",
-        "memoization-escape-hatches.md",
-        "profiling.md",
-        "quantization-guide.md",
-        "react-compiler-migration.md",
-        "route-splitting.md",
-        "rum-setup.md",
-        "speculative-decoding.md",
-        "state-colocation.md",
-        "tanstack-virtual-patterns.md",
-        "vllm-deployment.md"
+        "ork-delta.md"
       ],
       "scripts": [
         "api-optimization.ts",
@@ -3502,13 +3349,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "quantization-config.py",
         "virtualized-list.tsx",
         "vllm-server.py"
-      ],
-      "checklists": [
-        "cwv-checklist.md",
-        "image-checklist.md",
-        "inference-optimization.md",
-        "performance-audit-checklist.md",
-        "render-audit.md"
       ]
     },
     "plugins": [
@@ -3758,7 +3598,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "python-backend",
     "description": "Production Python async patterns including asyncio TaskGroup, FastAPI dependency injection and middleware, SQLAlchemy 2.0 async sessions, and database connection pool tuning. Python 3.11+ runtime concerns such as ExceptionGroup, cancellation semantics, and session rollback. Use when building async services, wiring FastAPI dependencies, or tuning database connection pools. Runtime implementation layer, not the API wire contract.",
     "version": "2.0.0",
-    "sha256": "52044e72c96626ea72ee8e3f5edf463cd7205504182cfe27af10a34a146a7550",
+    "sha256": "9d44a8a9f277d8d3164084d47fa5cdb38601353d2748e8ff6895d4927beba30a",
     "author": "OrchestKit",
     "tags": [
       "python",
@@ -3785,11 +3625,7 @@ export const SKILLS: Record<string, SkillMeta> = {
       "references": [
         "eager-loading.md",
         "fastapi-app-boilerplate.md",
-        "fastapi-integration.md",
-        "middleware-stack.md",
-        "pool-sizing.md",
-        "semaphore-patterns.md",
-        "taskgroup-patterns.md"
+        "ork-delta.md"
       ],
       "assets": [
         "fastapi-app-template.py"
@@ -3799,12 +3635,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "create-fastapi-app.md",
         "pool-setup-template.py",
         "repository-template.py"
-      ],
-      "checklists": [
-        "async-implementation-checklist.md",
-        "connection-pool-checklist.md",
-        "fastapi-production-checklist.md",
-        "sqlalchemy-async-checklist.md"
       ]
     },
     "plugins": [
@@ -3821,7 +3651,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "quality-gates",
     "description": "Use when assessing task complexity, before starting complex tasks, when stuck after multiple attempts, or reviewing code against best practices. Provides quality-gates scoring (1-5), escalation workflows, and pattern library management.",
     "version": "1.3.0",
-    "sha256": "86593f716050e251897ba983ec5f2929e3367bc5e709f2a46a1da486aefa6cb5",
+    "sha256": "472273a77c7af9bdd7499676610cbe7e5ba511f4e7159315bff830b2a95aa891",
     "author": "OrchestKit",
     "tags": [
       "quality",
@@ -3850,23 +3680,13 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "max",
     "structure": {
       "references": [
-        "blocking-thresholds.md",
-        "complexity-scoring.md",
-        "gate-patterns.md",
-        "llm-quality-validation.md",
-        "unified-scoring-framework.md",
-        "workflows.md"
+        "ork-delta.md",
+        "unified-scoring-framework.md"
       ],
       "scripts": [
         "analyze-codebase.sh",
         "assess-complexity.md",
-        "complexity-assessment.md",
-        "count-dependencies.py",
-        "gate-check-template.md",
-        "requirements-checklist.md"
-      ],
-      "checklists": [
-        "quality-gate-checklist.md"
+        "count-dependencies.py"
       ]
     },
     "plugins": [
@@ -3910,7 +3730,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "rag-retrieval",
     "description": "Retrieval-Augmented Generation patterns for grounded LLM responses. Use when building RAG pipelines, embedding documents, implementing hybrid search, contextual retrieval, HyDE, agentic RAG, multimodal RAG, query decomposition, reranking, or pgvector search.",
     "version": "2.0.0",
-    "sha256": "efecaac73a2eb4ce06e31ab1bd8f58d9815389787c744f93a7e8e48a80376061",
+    "sha256": "d8e93d576f041b8916cfb3cad42165f9fa1c60813799d97ebc0bb82ef6c0590c",
     "author": "OrchestKit",
     "tags": [
       "rag",
@@ -3962,7 +3782,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "react-server-components-framework",
     "description": "Use when building Next.js 16+ apps with React Server Components. Covers App Router, Cache Components (replacing experimental_ppr), streaming SSR, Server Actions, and React 19 patterns for server-first architecture.",
     "version": "1.5.0",
-    "sha256": "13b6ab751f30b37c2d072b783aa7e19d3fd21e6d2ff563f56029b4d65a0a31e9",
+    "sha256": "6c77efcac241036a11f416a88afc39adfbde6dec62614e91634f98d704de3244",
     "author": "OrchestKit",
     "tags": [
       "frontend",
@@ -3988,18 +3808,8 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "cache-components.md",
         "capability-details.md",
-        "client-components.md",
-        "component-patterns.md",
-        "data-fetching.md",
-        "migration-guide.md",
-        "nextjs-16-upgrade.md",
-        "react-19-patterns.md",
-        "routing-patterns.md",
-        "server-actions.md",
-        "server-components.md",
-        "streaming-patterns.md",
+        "ork-delta.md",
         "tanstack-router-patterns.md"
       ],
       "scripts": [
@@ -4007,9 +3817,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "create-server-component.md",
         "server-action-template.ts",
         "server-component-template.tsx"
-      ],
-      "checklists": [
-        "rsc-implementation-checklist.md"
       ]
     },
     "plugins": [
@@ -4340,7 +4147,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "security-patterns",
     "description": "Security patterns for authentication, defense-in-depth, input validation, OWASP Top 10, LLM safety, and PII masking. Use when implementing auth flows, security layers, input sanitization, vulnerability prevention, prompt injection defense, or data redaction.",
     "version": "2.0.0",
-    "sha256": "95811cc1d4afa4330cdc60d44e08b5c116b12cce6a36c50a7ea5eb2c4b6311df",
+    "sha256": "12c39408cfb249c9bf8832803039278f2b184a5763cdb8c29fc6bec7d10be281",
     "author": "OrchestKit",
     "tags": [
       "security",
@@ -4372,18 +4179,13 @@ export const SKILLS: Record<string, SkillMeta> = {
         "cc-permission-model.md",
         "context-separation.md",
         "langfuse-mask-callback.md",
-        "llm-guard-sanitization.md",
-        "logging-redaction.md",
-        "oauth-2.1-passkeys.md",
+        "ork-delta.md",
         "output-guardrails.md",
         "post-llm-attribution.md",
         "pre-llm-filtering.md",
         "presidio-integration.md",
         "prompt-audit.md",
-        "request-context-pattern.md",
-        "tenant-isolation.md",
-        "vulnerability-demos.md",
-        "zod-v4-api.md"
+        "request-context-pattern.md"
       ],
       "scripts": [
         "auth-middleware-template.py",
@@ -4716,7 +4518,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "testing-e2e",
     "description": "End-to-end testing patterns with Playwright — page objects, AI agent testing, visual regression, accessibility testing with axe-core, and CI integration. Use when writing E2E tests, setting up Playwright, implementing visual regression, or testing accessibility.",
     "version": "2.1.0",
-    "sha256": "99395526bd7ea8ea48af36ba19ad7132d38cddc2bb8cde82606afecefc48b8c1",
+    "sha256": "09aa34a272047e6ac4142e8d58cf8a166f4fe34729162a44c6acf888aff994b1",
     "author": "OrchestKit",
     "tags": [
       "testing",
@@ -4740,10 +4542,8 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "a11y-testing-tools.md",
-        "playwright-1.59-api.md",
-        "playwright-setup.md",
-        "visual-regression.md"
+        "ork-delta.md",
+        "playwright-setup.md"
       ],
       "scripts": [
         "create-page-object.md"
@@ -4770,7 +4570,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "testing-integration",
     "description": "Integration and contract testing patterns — API endpoint tests, component integration, database testing, Pact contract verification, property-based testing, and Zod schema validation. Use when testing API boundaries, verifying contracts, or validating cross-service integration.",
     "version": "2.1.0",
-    "sha256": "22021104943a2b924c7cc6a364797d594c3be04b300abe8f82445ea73c8826bf",
+    "sha256": "c89745884eb806bf2b744e36f0e0d9b31b68b23fc5b7b212ebae6d5af24db0f1",
     "author": "OrchestKit",
     "tags": [
       "testing",
@@ -4796,13 +4596,11 @@ export const SKILLS: Record<string, SkillMeta> = {
     "structure": {
       "references": [
         "consumer-tests.md",
-        "pact-broker.md",
-        "provider-verification.md",
+        "ork-delta.md",
         "strategies-guide.md"
       ],
       "scripts": [
-        "create-integration-test.md",
-        "test-plan-template.md"
+        "create-integration-test.md"
       ],
       "checklists": [
         "contract-testing-checklist.md",
@@ -4824,7 +4622,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "testing-llm",
     "description": "LLM and AI testing patterns — mock responses, evaluation with DeepEval/RAGAS, structured output validation, and agentic test patterns (generator, healer, planner). Use when testing AI features, validating LLM outputs, or building evaluation pipelines.",
     "version": "2.1.0",
-    "sha256": "7cc4430fafdc7b8878d71327f70d42a9a6357b21cb73c9673b8ea5a350422c5e",
+    "sha256": "098c0fe02d988a33321118aa17f2b046162099211c2d5606f967e2f58c29aa4a",
     "author": "OrchestKit",
     "tags": [
       "testing",
@@ -4849,10 +4647,8 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "deepeval-ragas-api.md",
-        "generator-agent.md",
         "healer-agent.md",
-        "planner-agent.md"
+        "ork-delta.md"
       ],
       "checklists": [
         "llm-test-checklist.md"
@@ -5002,7 +4798,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "ui-components",
     "description": "UI component library patterns for shadcn/ui and Radix Primitives. Use when building accessible component libraries, customizing shadcn components, using Radix unstyled primitives, or creating design system foundations.",
     "version": "2.1.0",
-    "sha256": "8b74bb59e9276b0f1d43f94d5336dc2085d67cb3499d0615ff97bc4d92754080",
+    "sha256": "4068a6692069f89056eb355d450b3c5af5e416b28df3bc398cad5ab5f66182b2",
     "author": "OrchestKit",
     "tags": [
       "ui-components",
@@ -5032,16 +4828,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "aschild-composition.md",
-        "cn-utility-patterns.md",
-        "component-extension.md",
-        "cva-variant-system.md",
-        "dark-mode-toggle.md",
-        "dialog-modal-patterns.md",
-        "dropdown-menu-patterns.md",
-        "focus-management.md",
-        "oklch-theming.md",
-        "popover-tooltip-patterns.md"
+        "ork-delta.md"
       ],
       "scripts": [
         "composed-trigger.tsx",
@@ -5050,10 +4837,6 @@ export const SKILLS: Record<string, SkillMeta> = {
         "custom-theme.css",
         "cva-component.tsx",
         "extended-button.tsx"
-      ],
-      "checklists": [
-        "accessibility-audit.md",
-        "shadcn-setup.md"
       ]
     },
     "plugins": [
@@ -5265,7 +5048,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "vite-advanced",
     "description": "Advanced Vite 8 patterns including Rolldown-powered builds, advancedChunks, Environment API, plugin development, SSR configuration, library mode, and build optimization. Use when customizing build pipelines, creating plugins, or configuring multi-environment builds.",
     "version": "2.0.0",
-    "sha256": "702282ae8d4ae3ab69c6dfdcd1cace19f2732d7cfe6aa042638f72fc07290cc0",
+    "sha256": "c3338f2fcf4aaac614dd2061148a25fa3363620383777cc0dc73011939b8d0e3",
     "author": "OrchestKit",
     "tags": [
       "vite",
@@ -5294,20 +5077,13 @@ export const SKILLS: Record<string, SkillMeta> = {
     "complexity": "medium",
     "structure": {
       "references": [
-        "chunk-optimization.md",
-        "environment-api.md",
         "library-mode.md",
-        "plugin-development.md",
-        "ssr-configuration.md",
-        "vite8-rolldown.md"
+        "ork-delta.md"
       ],
       "scripts": [
         "custom-plugin.ts",
         "library-config.ts",
         "multi-environment-config.ts"
-      ],
-      "checklists": [
-        "production-build.md"
       ]
     },
     "plugins": [
@@ -5415,7 +5191,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "name": "zustand-patterns",
     "description": "Reference for Zustand 5.x state management including slices, middleware, Immer, useShallow, persistence, selectors, and devtools integration. Documents 7 core patterns with TypeScript examples and anti-patterns. Use when building React state management with Zustand instead of Redux.",
     "version": "1.0.0",
-    "sha256": "a9d6c3fa8145989145a9b73920d864bd8f9b9c602554a72cbd0f4e00a84e68d3",
+    "sha256": "66c05a0ed66e8ddb5e7fcf5741acbf4ec71ca5b394bf4bb2844793f2cc95b4b1",
     "author": "OrchestKit",
     "tags": [
       "zustand",
@@ -5440,8 +5216,7 @@ export const SKILLS: Record<string, SkillMeta> = {
     "structure": {
       "references": [
         "anti-patterns-and-integration.md",
-        "core-patterns.md",
-        "middleware-composition.md"
+        "ork-delta.md"
       ],
       "scripts": [
         "store-template.ts"

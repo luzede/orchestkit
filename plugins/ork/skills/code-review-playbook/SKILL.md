@@ -2,14 +2,13 @@
 name: code-review-playbook
 license: MIT
 compatibility: "Claude Code 2.1.220+."
-description: Use this skill when conducting or improving code reviews. Provides structured review processes, conventional comments patterns, language-specific checklists, and feedback templates. Use when reviewing PRs or standardizing review practices.
+description: Structured review processes, conventional comments, language-specific checklists, and feedback templates. Use when reviewing PRs, conducting code review, or standardizing review practice.
 version: 2.0.0
 author: OrchestKit
 tags: [code-review, quality, collaboration, best-practices]
 context: inherit
 agent: code-quality-reviewer
 user-invocable: false
-disable-model-invocation: true
 hooks:
   PostToolUse:
     - matcher: "Write|Edit"

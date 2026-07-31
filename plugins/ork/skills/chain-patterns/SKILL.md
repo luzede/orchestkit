@@ -1,12 +1,11 @@
 ---
 name: chain-patterns
 compatibility: "Claude Code 2.1.220+"
-description: "Chain patterns for CC 2.1.71 pipelines — MCP detection, handoff files, checkpoint-resume, worktree agents, CronCreate monitoring. Use when building multi-phase pipeline skills. Loaded via skills: field by pipeline skills (fix-issue, implement, brainstorm, verify). Not user-invocable."
+description: "Chain patterns for multi-phase pipelines: MCP detection, handoff files, checkpoint-resume, worktree agents, CronCreate monitoring. Use when building or debugging a pipeline skill."
 tags: [pipeline, resilience, checkpoint, mcp, orchestkit]
 version: 1.0.0
 author: OrchestKit
 user-invocable: false
-disable-model-invocation: true
 context: inherit
 allowed-tools: [Read, ToolSearch]
 complexity: medium

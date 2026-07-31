@@ -116,11 +116,23 @@ run_test() {
         return 0
     fi
 
+    # Pick the interpreter from the file, do not assume bash. Wiring the
+    # reclaimed tests added .mjs suites here for the first time, and `bash`
+    # on a Node file is a shell syntax error (exit 2), so test-import-symbols
+    # and test-registry-resolve reported FAIL in the suite while passing
+    # standalone. That is the exact "suite context differs" trap, and it looked
+    # like a flaky test rather than a runner bug.
+    local runner=bash
+    case "$script" in
+        *.mjs|*.js) runner=node ;;
+        *.py)       runner=python3 ;;
+    esac
+
     local exit_code=0
     if [[ -n "$VERBOSE" ]]; then
-        bash "$script" $VERBOSE || exit_code=$?
+        "$runner" "$script" $VERBOSE || exit_code=$?
     else
-        bash "$script" 2>&1 || exit_code=$?
+        "$runner" "$script" 2>&1 || exit_code=$?
     fi
 
     echo ""
@@ -189,6 +201,30 @@ if [[ "$RUN_UNIT" == "true" ]]; then
     run_test "ASCII Density Scan (advisory)" "$SCRIPT_DIR/unit/test-ascii-density.sh" || true  # silent: known-noise
     run_test "ASCII i18n Alignment (CJK + Devanagari)" "$SCRIPT_DIR/unit/test-ascii-i18n.sh" || true  # silent: known-noise
 
+    # --- reclaimed by #3220: these existed but no runner referenced them,
+    #     so they had never executed. All verified passing before wiring.
+    run_test "Cc 216 Compliance" "$SCRIPT_DIR/compliance/test-cc-216-compliance.sh" || true
+    run_test "Config System" "$SCRIPT_DIR/config/test-config-system.sh" || true
+    run_test "Bundle No External Deps" "$SCRIPT_DIR/hooks/test-bundle-no-external-deps.sh" || true
+    run_test "Context Injection Budget" "$SCRIPT_DIR/hooks/test-context-injection-budget.sh" || true
+    run_test "Migrations Shipped" "$SCRIPT_DIR/hooks/test-migrations-shipped.sh" || true
+    run_test "Native Binary Compat" "$SCRIPT_DIR/hooks/test-native-binary-compat.sh" || true
+    run_test "Claude Md Injection" "$SCRIPT_DIR/indexes/test-claude-md-injection.sh" || true
+    run_test "Keyword Extraction" "$SCRIPT_DIR/indexes/test-keyword-extraction.sh" || true
+    run_test "Vercel Format" "$SCRIPT_DIR/indexes/test-vercel-format.sh" || true
+    run_test "Cc Version Ceiling" "$SCRIPT_DIR/manifests/test-cc-version-ceiling.sh" || true
+    run_test "Hook Exec Form" "$SCRIPT_DIR/manifests/test-hook-exec-form.sh" || true
+    run_test "Build Drift" "$SCRIPT_DIR/plugins/test-build-drift.sh" || true
+    run_test "Marketplace Structure" "$SCRIPT_DIR/plugins/test-marketplace-structure.sh" || true
+    run_test "Async Hooks" "$SCRIPT_DIR/unit/test-async-hooks.sh" || true
+    run_test "Cdn Video Pipeline" "$SCRIPT_DIR/unit/test-cdn-video-pipeline.sh" || true
+    run_test "Hook Stdin Consumption" "$SCRIPT_DIR/unit/test-hook-stdin-consumption.sh" || true
+    run_test "Import Symbols" "$SCRIPT_DIR/unit/test-import-symbols.mjs" || true
+    run_test "Parse Frontmatter" "$SCRIPT_DIR/unit/test-parse-frontmatter.sh" || true
+    run_test "Registry Resolve" "$SCRIPT_DIR/unit/test-registry-resolve.mjs" || true
+    run_test "Whats New" "$SCRIPT_DIR/unit/test-whats-new.sh" || true
+    run_test "Worktree Discovery" "$SCRIPT_DIR/worktree/test-worktree-discovery.sh" || true
+
     # TypeScript hook tests (vitest)
     if [[ -n "${CI:-}" ]]; then
         echo -e "  ${CYAN}Vitest runs in dedicated CI job (hook-typescript-tests) — skipping here${NC}"
@@ -246,6 +282,10 @@ if [[ "$RUN_SECURITY" == "true" ]]; then
     run_test "Symlink Attack Tests" "$SCRIPT_DIR/security/test-symlink-attacks.sh" || true
     run_test "Input Validation Tests" "$SCRIPT_DIR/security/test-input-validation.sh" || true
     run_test "Additional Security Tests" "$SCRIPT_DIR/security/test-additional-security.sh" || true
+
+    # --- reclaimed by #3220: these existed but no runner referenced them,
+    #     so they had never executed. All verified passing before wiring.
+    run_test "Npm Audit Coverage" "$SCRIPT_DIR/security/test-npm-audit-coverage.sh" || true
     # Mem0 removed — security tests deleted
 fi
 
@@ -294,6 +334,16 @@ if [[ "$RUN_INTEGRATION" == "true" ]]; then
 
     # Feedback System Tests (v4.12.0)
     run_test "Feedback System Tests" "$SCRIPT_DIR/feedback/test-feedback-system.sh" || true
+
+    # --- reclaimed by #3220: these existed but no runner referenced them,
+    #     so they had never executed. All verified passing before wiring.
+    run_test "Output Guard Dispatcher" "$SCRIPT_DIR/integration/hooks/test-output-guard-dispatcher.sh" || true
+    run_test "Cc Backfill Changelog Ref" "$SCRIPT_DIR/integration/test-cc-backfill-changelog-ref.sh" || true
+    run_test "Cc Stale Belowfloor" "$SCRIPT_DIR/integration/test-cc-stale-belowfloor.sh" || true
+    run_test "Context Deferral" "$SCRIPT_DIR/integration/test-context-deferral.sh" || true
+    run_test "Full Mcp Integration" "$SCRIPT_DIR/integration/test-full-mcp-integration.sh" || true
+    run_test "Image Paste Pipeline" "$SCRIPT_DIR/integration/test-image-paste-pipeline.sh" || true
+    run_test "Multi Instance Gates" "$SCRIPT_DIR/integration/test-multi-instance-gates.sh" || true
 fi
 
 # ============================================================
@@ -311,6 +361,10 @@ if [[ "$RUN_E2E" == "true" ]]; then
 
     # Agent Lifecycle E2E Tests (v4.12.0)
     run_test "Agent Lifecycle E2E (New)" "$SCRIPT_DIR/agents/test-agent-lifecycle-e2e.sh" || true
+
+    # --- reclaimed by #3220: these existed but no runner referenced them,
+    #     so they had never executed. All verified passing before wiring.
+    run_test "Progressive Loading" "$SCRIPT_DIR/e2e/test-progressive-loading.sh" || true
 fi
 
 # ============================================================
@@ -337,7 +391,17 @@ if [[ "$RUN_SKILLS" == "true" ]]; then
         run_test "Agent Definitions" "$SCRIPT_DIR/subagents/definition/test-agent-definitions.sh" || true
         # Reachability gate: a skill with no slash command AND model invocation
         # disabled AND no skills: frontmatter wiring cannot be invoked by anyone.
-        run_test "Unreachable Skills" "$SCRIPT_DIR/orphans/test-unreachable-skills.sh" || true  # silent: best-effort (run_test records failures; suite exits non-zero at end)
+        #
+        # ADVISORY here on purpose. Two gates read the same signal and they are
+        # not redundant: tests/skills/structure/test-skill-reachability.mjs is
+        # the RATCHET (UNREACHABLE_BASELINE=29, fails only on an increase), and
+        # this script is the DETECTOR, which has no baseline and exits 1 on any
+        # unreachable skill at all. Running the detector as a hard gate would
+        # fail the suite on the 29 the ratchet has already accepted, i.e. it
+        # would report a regression that did not happen. Enforcement stays with
+        # the ratchet; this reports the current list.
+        ORK_UNREACHABLE_SKILLS_ADVISORY=1 \
+          run_test "Unreachable Skills (advisory)" "$SCRIPT_DIR/orphans/test-unreachable-skills.sh" || true  # silent: best-effort (run_test records failures; suite exits non-zero at end)
         # Policy gate: a workflow that invokes an LLM must be manually
         # triggered. Max-plan OAuth is $0 in dollars but draws on the shared
         # weekly quota, so an automatic run competes with the operator's own
@@ -370,6 +434,35 @@ if [[ "$RUN_SKILLS" == "true" ]]; then
     # Plugin structure compliance tests (hooks location)
     run_test "Plugin Structure Compliance" "$SCRIPT_DIR/plugins/structure/test-plugin-structure-compliance.sh" || true
     run_test "Hooks Location" "$SCRIPT_DIR/plugins/structure/test-hooks-location.sh" || true
+
+    # --- reclaimed by #3220: these existed but no runner referenced them,
+    #     so they had never executed. All verified passing before wiring.
+    run_test "Agent Context Modes" "$SCRIPT_DIR/agents/test-agent-context-modes.sh" || true
+    run_test "Agent Model Selection" "$SCRIPT_DIR/agents/test-agent-model-selection.sh" || true
+    run_test "Agent Multi Agent Tools" "$SCRIPT_DIR/agents/test-agent-multi-agent-tools.sh" || true
+    run_test "Agent Required Hooks" "$SCRIPT_DIR/agents/test-agent-required-hooks.sh" || true
+    run_test "Agent Skill Validation" "$SCRIPT_DIR/agents/test-agent-skill-validation.sh" || true
+    run_test "Ai Ml Agents" "$SCRIPT_DIR/agents/test-ai-ml-agents.sh" || true
+    run_test "All Agent Skill Refs" "$SCRIPT_DIR/agents/test-all-agent-skill-refs.sh" || true
+    run_test "Auto Mode In Description" "$SCRIPT_DIR/agents/test-auto-mode-in-description.sh" || true
+    run_test "Hook Paths" "$SCRIPT_DIR/agents/test-hook-paths.sh" || true
+    run_test "Script Activation" "$SCRIPT_DIR/skills/scripts/integration/test-script-activation.sh" || true
+    run_test "Script Execution" "$SCRIPT_DIR/skills/scripts/integration/test-script-execution.sh" || true
+    run_test "Command Execution" "$SCRIPT_DIR/skills/scripts/test-command-execution.sh" || true
+    run_test "Script Content" "$SCRIPT_DIR/skills/scripts/test-script-content.sh" || true
+    run_test "Script Structure" "$SCRIPT_DIR/skills/scripts/test-script-structure.sh" || true
+    run_test "Assets Directory" "$SCRIPT_DIR/skills/structure/test-assets-directory.sh" || true
+    run_test "Provenance Sediment" "$SCRIPT_DIR/skills/structure/test-provenance-sediment.sh" || true
+    run_test "Quality Bar" "$SCRIPT_DIR/skills/structure/test-quality-bar.sh" || true
+    run_test "Scripts Directory" "$SCRIPT_DIR/skills/structure/test-scripts-directory.sh" || true
+    run_test "Skill Delta" "$SCRIPT_DIR/skills/structure/test-skill-delta.sh" || true
+    run_test "Cross Skill Refs" "$SCRIPT_DIR/skills/test-cross-skill-refs.sh" || true
+    run_test "Dashboard Specs" "$SCRIPT_DIR/skills/test-dashboard-specs.sh" || true
+    run_test "Frontend Skills" "$SCRIPT_DIR/skills/test-frontend-skills.sh" || true
+    run_test "Remember Memory Integration" "$SCRIPT_DIR/skills/test-remember-memory-integration.sh" || true
+    run_test "Shared Scripts Drift" "$SCRIPT_DIR/skills/test-shared-scripts-drift.sh" || true
+    run_test "Skill Context Modes" "$SCRIPT_DIR/skills/test-skill-context-modes.sh" || true
+    run_test "Storybook Catalog Import" "$SCRIPT_DIR/skills/test-storybook-catalog-import.sh" || true
 fi
 # ============================================================
 

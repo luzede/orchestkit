@@ -131,7 +131,9 @@ while [[ $# -gt 0 ]]; do
             echo ""
             echo "  --force-skill    TIER 1 unit eval: inject SKILL.md via --append-system-prompt."
             echo "                   Bypasses agent routing to test skill content quality in isolation."
-            echo "                   Implies --skip-baseline and --max-turns 1."
+            echo "                   Implies --skip-baseline. Tools ARE available in this mode"
+            echo "                   (measured: turns=3), so it tests behavior, not just prose."
+            echo "                   It does NOT exercise the real plugin-load path."
             exit 0
             ;;
         -*) echo -e "${RED}Unknown option: $1${NC}"; exit 1 ;;
@@ -256,8 +258,14 @@ run_with_forced_skill() {
     local skill_content
     skill_content=$(awk 'BEGIN{skip=0} /^---$/{skip++; next} skip>=2{print}' "$skill_path")
 
-    # Build flags: no --plugin-dir, no tool use (pure text generation)
-    # --print forces text-only output with no tool calls — ideal for quality eval
+    # Build flags: no --plugin-dir. SKILL.md goes in as a system prompt instead.
+    #
+    # `--print` here is a NO-OP: it is the long form of `-p`, which the invocation
+    # below already passes, so this line adds the same flag twice. It does NOT
+    # disable tools — the old comment claimed "forces text-only output with no
+    # tool calls" and that was simply false. Measured 2026-08-04: this exact flag
+    # set returned turns=3 with real tool rounds. Kept only because removing it
+    # would change nothing; the lie was the comment, not the flag.
     flags+=(--print)
     flags+=(--no-session-persistence)
     flags+=(--max-budget-usd "$MAX_BUDGET")
@@ -860,7 +868,7 @@ grade_eval_entry() {
         local aname; aname=$(yq -r ".quality_evals[$ei].assertions[$ai].name" "$eval_file")
         local acheck; acheck=$(yq -r ".quality_evals[$ei].assertions[$ai].check" "$eval_file")
         [[ "$first_a" == "true" ]] && first_a=false || assertions_arr+=","
-        assertions_arr+="{\"name\":$(echo "$aname" | jq -Rs .),\"check\":$(echo "$acheck" | jq -Rs .)}"
+        assertions_arr+="{\"name\":$(printf '%s' "$aname" | jq -Rs .),\"check\":$(printf '%s' "$acheck" | jq -Rs .)}"
     done
     assertions_arr+="]"
 
@@ -975,9 +983,55 @@ write_results_json() {
     local duration="${10}"
 
     mkdir -p "$RESULTS_DIR"
-    local safe_skill; safe_skill=$(echo "$skill_id" | jq -Rs .)
-    local safe_verdict; safe_verdict=$(echo "$verdict" | jq -Rs .)
-    local safe_ts; safe_ts=$(date -u +%Y-%m-%dT%H:%M:%SZ | jq -Rs .)
+    # printf, not echo: `echo x | jq -Rs .` keeps the trailing newline, which is
+    # why shipped results read "skill": "visualize-plan\n" and
+    # "verdict": "PARTIAL\n". Those strings then fail any exact-match consumer.
+    local safe_skill; safe_skill=$(printf '%s' "$skill_id" | jq -Rs .)
+    local safe_verdict; safe_verdict=$(printf '%s' "$verdict" | jq -Rs .)
+    local ts; ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+    local safe_ts; safe_ts=$(printf '%s' "$ts" | jq -Rs .)
+
+    # A SKIPPED baseline is not a baseline that scored 0. Emitting 0 turned
+    # "we did not measure" into "the model without the skill got everything
+    # wrong", and delta then reported the skill's own pass rate as its
+    # advantage: visualize-plan.quality.json shipped `delta: 66` from a run
+    # with no baseline arm, contradicting the per-eval deltas of 0 in the same
+    # file. null is the honest value, and no consumer reads these two fields
+    # (only .aggregate.skill_pass_rate is consumed, by
+    # scripts/eval/aggregate-quality-index.sh and run-skill-eval.sh).
+    local json_base_rate="$agg_base_rate"
+    local json_delta="$agg_delta"
+    if [[ "$SKIP_BASELINE" == "true" ]]; then
+        json_base_rate="null"
+        json_delta="null"
+    fi
+
+    # Provenance: a result that does not record how it was produced cannot be
+    # trusted or reproduced. Without these, a --force-skill unit run and a full
+    # A/B run are indistinguishable in the artifact.
+    # Mirror the defaults applied at the call sites (:229, :272, :594) so the
+    # record shows what actually ran, not an empty string.
+    local safe_model; safe_model=$(printf '%s' "${EVAL_MODEL:-haiku}" | jq -Rs .)
+    local safe_grader; safe_grader=$(printf '%s' "${GRADING_MODEL:-haiku}" | jq -Rs .)
+
+    # State what this artifact actually measures, IN the artifact. A result file
+    # gets read months later, out of context, by someone who was not here — and
+    # this lane's headline number does not mean what its field name implies.
+    # Proven 2026-08-04 with three probes (0/5 skill-specific output markers):
+    # in headless -p the skill never loads, so the routed mode's "with skill"
+    # arm is the base model. --force-skill does inject SKILL.md, but runs with
+    # no tools, so it grades prose rather than behavior.
+    local measures caveat
+    if [[ "$FORCE_SKILL" == "true" ]]; then
+        measures="skill-content-with-tools"
+        caveat="SKILL.md is injected as a SYSTEM PROMPT via --append-system-prompt, not loaded as a plugin skill. Tools ARE available and are used (probe 2026-08-04: turns=3, real tool rounds), so this measures whether the skill's CONTENT drives good behavior. It does NOT exercise the real plugin-load path, so it cannot catch routing, frontmatter, or preload defects."
+    else
+        measures="base-model"
+        caveat="ROUTED MODE DOES NOT LOAD THE SKILL. Verified 2026-08-04: three probes with these exact flags produced 0/5 skill-specific output markers, and a slash-command invocation returned turns=0 with 'I don't see an actual request in your message'. Both arms are the base model, so skill_pass_rate describes the MODEL and any delta is noise between two baseline runs. Do not cite these numbers as evidence about the skill."
+    fi
+    local safe_measures; safe_measures=$(printf '%s' "$measures" | jq -Rs .)
+    local safe_caveat; safe_caveat=$(printf '%s' "$caveat" | jq -Rs .)
+
     cat > "$RESULTS_DIR/$skill_id.quality.json" <<ENDJSON
 {
   "skill": $safe_skill,
@@ -985,13 +1039,23 @@ write_results_json() {
   "evals": $evals_json,
   "aggregate": {
     "skill_pass_rate": $agg_skill_rate,
-    "baseline_pass_rate": $agg_base_rate,
-    "delta": $agg_delta,
+    "baseline_pass_rate": $json_base_rate,
+    "delta": $json_delta,
     "discriminating_assertions": $agg_discriminating,
     "total_assertions": $agg_skill_total,
     "hook_rejections": $agg_hook_rejections,
     "verdict": $safe_verdict
   },
+  "invocation": {
+    "skip_baseline": $SKIP_BASELINE,
+    "force_skill": $FORCE_SKILL,
+    "model": $safe_model,
+    "grader_model": $safe_grader,
+    "max_turns": $MAX_TURNS,
+    "reps": $REPS
+  },
+  "measures": $safe_measures,
+  "caveat": $safe_caveat,
   "reps": $REPS,
   "duration_seconds": $duration
 }
@@ -1175,7 +1239,7 @@ eval_skill() {
             fi
 
             [[ "$first_assertion" == "true" ]] && first_assertion=false || assertions_json+=","
-            assertions_json+="{\"name\":$(echo "$aname" | jq -Rs .),\"check\":$(echo "$acheck" | jq -Rs .),\"with_skill\":\"$skill_verdict\",\"baseline\":\"$base_verdict\",\"discriminating\":$is_discriminating,\"grader_reason\":$(echo "$skill_reason" | jq -Rs .)}"
+            assertions_json+="{\"name\":$(printf '%s' "$aname" | jq -Rs .),\"check\":$(printf '%s' "$acheck" | jq -Rs .),\"with_skill\":\"$skill_verdict\",\"baseline\":\"$base_verdict\",\"discriminating\":$is_discriminating,\"grader_reason\":$(printf '%s' "$skill_reason" | jq -Rs .)}"
         done
 
         assertions_json+="]"
@@ -1196,7 +1260,7 @@ eval_skill() {
 
         # Accumulate eval JSON
         [[ "$first_eval" == "true" ]] && first_eval=false || evals_json+=","
-        evals_json+="{\"prompt\":$(echo "$prompt" | jq -Rs .),\"assertions\":$assertions_json,\"skill_pass_rate\":$_EVAL_SKILL_RATE,\"baseline_pass_rate\":$_EVAL_BASE_RATE,\"delta\":$_EVAL_DELTA}"
+        evals_json+="{\"prompt\":$(printf '%s' "$prompt" | jq -Rs .),\"assertions\":$assertions_json,\"skill_pass_rate\":$_EVAL_SKILL_RATE,\"baseline_pass_rate\":$_EVAL_BASE_RATE,\"delta\":$_EVAL_DELTA}"
 
         # Clean up temp files + scaffold for this eval entry
         if [[ "$GRADE_ONLY" != "true" ]]; then
@@ -1319,6 +1383,13 @@ elif [[ "$FORCE_SKILL" == "true" ]]; then
     echo -e "${BLUE}  Mode: ${CYAN}TIER 1 UNIT (SKILL.md injected, no routing)${NC}"
 else
     echo -e "${BLUE}  Mode: ${GREEN}LIVE (grading with ${REPS}x reps)${NC}"
+    # Say it every run, not once in a doc nobody re-reads. Proven 2026-08-04
+    # with three probes: in headless -p the skill does NOT load, so this mode's
+    # "with skill" arm is the baseline and the delta is noise between two
+    # baseline runs. Full evidence: the header of any skills/*.eval.yaml.
+    echo -e "${YELLOW}  ⚠ ROUTED MODE DOES NOT LOAD THE SKILL — both arms are the${NC}"
+    echo -e "${YELLOW}    base model. Scores describe the MODEL, not the skill.${NC}"
+    echo -e "${YELLOW}    Use --force-skill to actually put SKILL.md in context.${NC}"
 fi
 echo "  Max turns: $MAX_TURNS  |  Timeout: ${GEN_TIMEOUT}s  |  Budget: \$${MAX_BUDGET}  |  Grader: $GRADING_MODEL"
 [[ "$SKIP_BASELINE" == "true" ]] && echo -e "  Baseline: ${YELLOW}SKIPPED${NC}"

@@ -637,6 +637,16 @@ jobs:
       - name: Run plugin structure tests
         run: bash scripts/ci/run-tests.sh tests/plugins --verbose
 
+      # tests/quality gates the playground visual standard. Exemplars are BLOCKING
+      # (they are what every artifact is copied from); shipped artifacts are advisory
+      # until PLAYGROUND_STANDARD_ENFORCE=1. Note CI sees only TRACKED artifacts
+      # (171 on 2026-08-04) while a local run scans the working tree (192), so the
+      # advisory denominator here is legitimately smaller than a dev's. Wired here AND in
+      # tests/run-all-tests.sh — a dir in one roster but not the other is the
+      # silently-dead-gate class this comment block already documents.
+      - name: Run quality tests
+        run: bash scripts/ci/run-tests.sh tests/quality --verbose
+
       - name: Run orphan tests
         env:
           # unreachable-skills holds a 29-skill baseline tracked in #3215; advisory

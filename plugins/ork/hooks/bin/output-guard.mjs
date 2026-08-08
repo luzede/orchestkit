@@ -23,39 +23,23 @@
  */
 
 /**
- * Events where hookEventName is valid and CC reads hookSpecificOutput.
- * Derived from src/hooks/src/types.ts:223 HookSpecificOutput.hookEventName union
- * plus SessionStart/PostCompact which CC also consumes (see #1234 audit).
+ * The allow-lists are GENERATED from spec/cc-output-keys.spec.yml, which is
+ * derived from the shipped CC binary.
+ *
+ * They used to be hand-typed here, with a provenance comment citing
+ * "types.ts plus the #1234 audit" — one hand-maintained artifact plus a memory.
+ * Both lists were wrong: CC documents Stop, SubagentStop and PostToolBatch as
+ * additionalContext consumers and this guard named none of them, so it silently
+ * deleted valid output from six live hooks. A guard that strips CORRECT output
+ * fails in the one direction nobody checks.
+ *
+ * Regenerate: node scripts/derive-cc-output-keys.mjs
+ * Drift gate:  node scripts/derive-cc-output-keys.mjs --check
  */
-const EVENTS_WITH_HOOK_EVENT_NAME = new Set([
-  'PreToolUse',
-  'PostToolUse',
-  'PostToolUseFailure',
-  'PermissionRequest',
-  'PermissionDenied',
-  'UserPromptSubmit',
-  'SubagentStart',
-  'SubagentStop',
-  // CC also reads hookSpecificOutput on these (#1234 audit, hq-ext session
-  // banner injection observed in the wild).
-  'SessionStart',
-  'PostCompact',
-]);
-
-/**
- * Events where additionalContext is read by CC.
- * UserPromptSubmit, PreToolUse, PostToolUse* — and per #1234 audit also
- * SessionStart + PostCompact (CC pins SessionStart additionalContext into
- * the cached system prompt, observed live via hq-ext's tier banner).
- */
-const EVENTS_WITH_ADDITIONAL_CONTEXT = new Set([
-  'UserPromptSubmit',
-  'PreToolUse',
-  'PostToolUse',
-  'PostToolUseFailure',
-  'SessionStart',
-  'PostCompact',
-]);
+import {
+  EVENTS_WITH_HOOK_EVENT_NAME,
+  EVENTS_WITH_ADDITIONAL_CONTEXT,
+} from './cc-output-keys.generated.mjs';
 
 /**
  * Sanitize a hook result before it is written to stdout.
@@ -87,11 +71,30 @@ export function sanitizeOutput(result, firingEvent) {
   // Shallow-clone to avoid mutating the original hook return value.
   const sanitized = { ...result, hookSpecificOutput: { ...result.hookSpecificOutput } };
 
+  // NOTE — a mismatched-hookEventName rule was tried here and REVERTED.
+  //
+  // The idea was sound: #1794 was a WorktreeCreate response carrying
+  // hookEventName:'UserPromptSubmit', and checking that mismatch directly is
+  // narrower than checking whether the event consumes hookSpecificOutput.
+  //
+  // It broke 9 security tests, turning "expected deny" into "got abstain".
+  // The reason is in lib/output.ts: outputDeny/outputAsk/outputDefer HARDCODE
+  // hookEventName:'PreToolUse' regardless of which event the hook fires on, so
+  // a PermissionRequest hook legitimately emits a 'PreToolUse' label. Dropping
+  // the envelope on that mismatch deleted the permission decision itself —
+  // a guard turning a denial into an abstention, which is the single worst
+  // direction for this file to fail in.
+  //
+  // Fixing it properly means teaching the builders their firing event, which is
+  // a wider change than this one. Tracked separately; do not re-add the rule
+  // without that.
+  const declared = sanitized.hookSpecificOutput.hookEventName;
+
   // --- Rule 1: Strip hookEventName on events that don't consume it ---
-  if (sanitized.hookSpecificOutput.hookEventName !== undefined) {
+  if (declared !== undefined) {
     if (!EVENTS_WITH_HOOK_EVENT_NAME.has(firingEvent)) {
       process.stderr.write(
-        `[orchestkit] WARN: stripped hookEventName=${sanitized.hookSpecificOutput.hookEventName}` +
+        `[orchestkit] WARN: stripped hookEventName=${declared}` +
         ` from ${firingEvent} response — see #1794\n`
       );
       delete sanitized.hookSpecificOutput.hookEventName;

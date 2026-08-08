@@ -567,6 +567,13 @@ describe('sanitizeOutput — all sanitize-target lifecycle events', () => {
   // Note: SessionStart and PostCompact are EXCLUDED here — they're allow-listed
   // for additionalContext + hookEventName (#1234 audit, hq-ext session banner
   // observed consuming it). See "SessionStart allow-listed" describe block below.
+  //
+  // Stop is EXCLUDED too, as of #3307. It used to sit in this list, so this
+  // suite asserted the very defect that issue reports: CC's shipped binary
+  // documents "Hook-specific output for the Stop event. additionalContext is
+  // non-error feedback delivered to the model", and the guard was deleting it
+  // from three live stop hooks. Stop, SubagentStop and PostToolBatch are now
+  // allow-listed, and output-guard-cc-contract.test.ts asserts they survive.
   const SANITIZE_EVENTS = [
     'WorktreeCreate',
     'WorktreeRemove',
@@ -576,7 +583,6 @@ describe('sanitizeOutput — all sanitize-target lifecycle events', () => {
     'InstructionsLoaded',
     'TaskCreated',
     'Notification',
-    'Stop',
     'StopFailure',
     'SessionEnd',
     'PreCompact',

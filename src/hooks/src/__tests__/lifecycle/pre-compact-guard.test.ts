@@ -7,17 +7,26 @@ import { mockCommonBasic } from '../fixtures/mock-common.js';
 vi.mock('node:fs', () => ({
   existsSync: vi.fn(() => false),
   readFileSync: vi.fn(() => ''),
+  writeFileSync: vi.fn(),
+  mkdirSync: vi.fn(),
+  unlinkSync: vi.fn(),
 }));
 
 vi.mock('../../lib/common.js', () => mockCommonBasic());
 
 import { preCompactGuard } from '../../lifecycle/pre-compact-guard.js';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, unlinkSync } from 'node:fs';
 import type { HookInput } from '../../types.js';
 import { createTestContext } from '../fixtures/test-context.js';
 
-function makeInput(): HookInput {
-  return { tool_name: 'PreCompact', session_id: 'test', tool_input: {} };
+function makeInput(overrides: Partial<HookInput> = {}): HookInput {
+  return { tool_name: 'PreCompact', session_id: 'test', tool_input: {}, ...overrides };
+}
+
+/** Spawn-log fixture: one agent, recent enough to look active to the fallback. */
+function recentSpawn(extra: Record<string, unknown> = {}): string {
+  const twoMinAgo = new Date(Date.now() - 2 * 60 * 1000).toISOString();
+  return JSON.stringify({ timestamp: twoMinAgo, subagent_type: 'workflow-architect', ...extra });
 }
 
 let testCtx: ReturnType<typeof createTestContext>;
@@ -76,5 +85,115 @@ describe('preCompactGuard', () => {
     vi.mocked(readFileSync).mockReturnValue('not valid json');
     const result = preCompactGuard(makeInput(), testCtx);
     expect(result.continue).toBe(true);
+  });
+
+  // At the context ceiling CC offers only "/compact or /clear". Blocking the
+  // automatic compaction it runs there leaves /clear as the sole exit, which
+  // destroys the session state this guard exists to protect.
+  it('never blocks automatic compaction, even with active agents', () => {
+    vi.mocked(existsSync).mockReturnValue(true);
+    vi.mocked(readFileSync).mockReturnValue(recentSpawn());
+    const result = preCompactGuard(makeInput({ trigger: 'auto' }), testCtx);
+    expect(result.continue).toBe(true);
+    expect(result.decision).toBeUndefined();
+  });
+
+  it('still blocks manual compaction with active agents', () => {
+    vi.mocked(existsSync).mockReturnValue(true);
+    vi.mocked(readFileSync).mockReturnValue(recentSpawn());
+    const result = preCompactGuard(makeInput({ trigger: 'manual' }), testCtx);
+    expect(result.continue).toBe(false);
+    expect(result.decision).toBe('block');
+  });
+
+  // CC 2.1.145+ background_tasks is authoritative. An EMPTY list means nothing
+  // is running, regardless of what the intent-only spawn log recorded minutes
+  // ago. That log has no completion records at all.
+  it('allows when background_tasks is empty despite a recent spawn entry', () => {
+    vi.mocked(existsSync).mockReturnValue(true);
+    vi.mocked(readFileSync).mockReturnValue(recentSpawn());
+    const result = preCompactGuard(makeInput({ background_tasks: [] }), testCtx);
+    expect(result.continue).toBe(true);
+    expect(result.suppressOutput).toBe(true);
+  });
+
+  it('blocks from background_tasks when CC reports a live agent', () => {
+    vi.mocked(existsSync).mockReturnValue(false);
+    const result = preCompactGuard(
+      makeInput({ background_tasks: [{ agent_id: 'a1', subagent_type: 'test-generator' }] }),
+      testCtx
+    );
+    expect(result.continue).toBe(false);
+    expect(result.stopReason).toContain('test-generator');
+  });
+
+  // Repeat-to-confirm (#3451 defect 2). The env override is read from a process
+  // env fixed at CC launch, so it is unreachable from inside a session the guard
+  // has already stopped. A second /compact is the only override that works from
+  // there. These tests drive both files through one path-aware fs mock.
+  describe('repeat to confirm', () => {
+    function mockFs(opts: { markerBlockedAt?: number }): void {
+      vi.mocked(existsSync).mockImplementation(p => {
+        const s = String(p);
+        if (s.includes('precompact-confirm')) return opts.markerBlockedAt !== undefined;
+        return true; // the spawn log
+      });
+      vi.mocked(readFileSync).mockImplementation(p => {
+        const s = String(p);
+        if (s.includes('precompact-confirm')) {
+          return JSON.stringify({ sessionId: 'test', blockedAt: opts.markerBlockedAt });
+        }
+        return recentSpawn();
+      });
+    }
+
+    it('blocks the first manual compact and leaves a confirm marker', () => {
+      mockFs({});
+      const result = preCompactGuard(makeInput({ trigger: 'manual' }), testCtx);
+      expect(result.decision).toBe('block');
+      expect(result.stopReason).toContain('Run /compact again within 60s');
+      const written = vi.mocked(writeFileSync).mock.calls.map(c => String(c[0]));
+      expect(written.some(p => p.includes('precompact-confirm-test.json'))).toBe(true);
+    });
+
+    it('allows a repeat compact inside the confirm window and consumes the marker', () => {
+      mockFs({ markerBlockedAt: Date.now() - 10 * 1000 });
+      const result = preCompactGuard(makeInput({ trigger: 'manual' }), testCtx);
+      expect(result.continue).toBe(true);
+      expect(result.decision).toBeUndefined();
+      const removed = vi.mocked(unlinkSync).mock.calls.map(c => String(c[0]));
+      expect(removed.some(p => p.includes('precompact-confirm-test.json'))).toBe(true);
+    });
+
+    it('re-blocks when the previous block is older than the confirm window', () => {
+      mockFs({ markerBlockedAt: Date.now() - 5 * 60 * 1000 });
+      const result = preCompactGuard(makeInput({ trigger: 'manual' }), testCtx);
+      expect(result.decision).toBe('block');
+    });
+
+    // A confirm must never be needed for the automatic path, which is unblocked
+    // outright, so auto must not consume a marker a manual attempt is holding.
+    it('does not consume the marker on auto-compaction', () => {
+      mockFs({ markerBlockedAt: Date.now() - 10 * 1000 });
+      const result = preCompactGuard(makeInput({ trigger: 'auto' }), testCtx);
+      expect(result.continue).toBe(true);
+      expect(vi.mocked(unlinkSync)).not.toHaveBeenCalled();
+    });
+  });
+
+  // One agent is logged by both spawn-intent-logger (source 'pretool') and
+  // subagent-validator (source 'start'), and repeats across SendMessage
+  // resumes. Undeduped, a single agent is reported as several.
+  it('counts one agent once when the spawn log holds duplicate entries', () => {
+    vi.mocked(existsSync).mockReturnValue(true);
+    vi.mocked(readFileSync).mockReturnValue(
+      [
+        recentSpawn({ agent_id: 'dup-1', source: 'pretool' }),
+        recentSpawn({ agent_id: 'dup-1', source: 'start' }),
+      ].join('\n')
+    );
+    const result = preCompactGuard(makeInput(), testCtx);
+    expect(result.continue).toBe(false);
+    expect(result.stopReason).toContain('1 background agent(s)');
   });
 });
